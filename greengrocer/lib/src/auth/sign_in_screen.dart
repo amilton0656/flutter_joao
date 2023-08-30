@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/auth/sign_up_screen.dart';
+import 'package:greengrocer/src/base/base_screen.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
 import 'components/custom_text_field.dart';
@@ -24,7 +26,7 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Nome do App
-        
+
                     Text.rich(
                       TextSpan(
                           style: const TextStyle(
@@ -46,9 +48,9 @@ class SignInScreen extends StatelessWidget {
                                 ))
                           ]),
                     ),
-        
+
                     //Categorias
-        
+
                     SizedBox(
                       height: 30,
                       child: DefaultTextStyle(
@@ -70,9 +72,9 @@ class SignInScreen extends StatelessWidget {
                   ],
                 ),
               ),
-        
+
               //Formulário
-        
+
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
@@ -80,28 +82,28 @@ class SignInScreen extends StatelessWidget {
                 ),
                 decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(45))),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(45))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     //Email
-        
+
                     const CustomTextField(
                       icon: Icons.email,
                       label: 'Email',
                     ),
-        
+
                     //Senha
-        
+
                     const CustomTextField(
                       icon: Icons.lock,
                       label: 'Senha',
                       isSecret: true,
                     ),
 
-                    
                     //Botão Entrar
-        
+
                     SizedBox(
                       height: 50,
                       child: ElevatedButton(
@@ -111,18 +113,22 @@ class SignInScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (ctx) => BaseScreen()));
+                        },
                         child: const Text(
-                          'data',
+                          'Entrar',
                           style: TextStyle(
                             fontSize: 18,
                           ),
                         ),
                       ),
                     ),
-        
+
                     //Esqueceu a senha
-        
+
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -135,9 +141,9 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-        
+
                     //Divisor
-        
+
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
@@ -161,9 +167,9 @@ class SignInScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-        
+
                     //Novo Usuário
-        
+
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(
@@ -176,7 +182,13 @@ class SignInScreen extends StatelessWidget {
                             color: Colors.green,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) => SignUpSreen(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Criar conta',
                           style: TextStyle(
