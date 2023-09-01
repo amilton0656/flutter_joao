@@ -6,10 +6,12 @@ import 'package:greengrocer/src/services/utils_services.dart';
 
 class CartTile extends StatefulWidget {
   final CartItemModel cartItem;
+  final Function(CartItemModel cartItem) onRemove;
 
   const CartTile({
     super.key,
     required this.cartItem,
+    required this.onRemove,
   });
 
   @override
@@ -22,37 +24,42 @@ class _CartTileState extends State<CartTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: ListTile(
-      leading: Image.asset(
-        widget.cartItem.item.imgUrl,
-        height: 60,
-        width: 60,
-      ),
-      title: Text(
-        widget.cartItem.item.itemName,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
+        margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
-      ),
-      subtitle: Text(
-        utilsServices.priceToCurrency(widget.cartItem.totalPrice()),
-        style: TextStyle(
-            color: CustomColors.customSwatchColor, fontWeight: FontWeight.bold),
-      ),
-      trailing: QuantityWidget(
-        value: widget.cartItem.quantity,
-        suffixText: widget.cartItem.item.unit,
-        result: (quantity) {
-          setState(() {
-            widget.cartItem.quantity = quantity;
-          });
-        },
-        isRemovable: true,
-      ),
-    ));
+        child: ListTile(
+          leading: Image.asset(
+            widget.cartItem.item.imgUrl,
+            height: 60,
+            width: 60,
+          ),
+          title: Text(
+            widget.cartItem.item.itemName,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: Text(
+            utilsServices.priceToCurrency(widget.cartItem.totalPrice()),
+            style: TextStyle(
+                color: CustomColors.customSwatchColor,
+                fontWeight: FontWeight.bold),
+          ),
+          trailing: QuantityWidget(
+            value: widget.cartItem.quantity,
+            suffixText: widget.cartItem.item.unit,
+            result: (quantity) {
+              setState(() {
+                widget.cartItem.quantity = quantity;
+
+                if (quantity == 0) {
+                  widget.onRemove(widget.cartItem);
+                }
+              });
+            },
+            isRemovable: true,
+          ),
+        ));
   }
 }
