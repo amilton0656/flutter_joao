@@ -1,4 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user_model.g.dart';
+
+@JsonSerializable()
 class UserModel {
+  @JsonKey(name: 'fullname')
   String? name;
   String? email;
   String? phone;
@@ -6,42 +13,25 @@ class UserModel {
   String? password;
   String? id;
   String? token;
-
+  
   UserModel({
+    this.name,
+    this.email,
     this.phone,
     this.cpf,
-    this.email,
-    this.name,
     this.password,
     this.id,
     this.token,
   });
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      phone: map['phone'],
-      cpf: map['cpf'],
-      email: map['email'],
-      name: map['fullname'],
-      password: map['password'],
-      id: map['id'],
-      token: map['token'],
-    );
-  }
 
-  Map<String, dynamic> toMap() {
-    return {
-     'phone': phone,
-     'cpf': cpf,
-     'email': email,
-     'fullname': name,
-     'password': password,
-     'id': id,
-     'token': token,
-    };
-  }
+
+
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   @override
   String toString() {
-    return 'name: $name | cpf: $cpf';
+    return 'UserModel(name: $name, email: $email, phone: $phone, cpf: $cpf, password: $password, id: $id, token: $token)';
   }
 }
